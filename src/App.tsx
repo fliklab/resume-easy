@@ -7,13 +7,11 @@ import { SampleResume } from "./pages";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sample" element={<SampleResume />} />
-          <Route path="/test-blocks" element={<BlocksTestPage />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sample" element={<SampleResume />} />
+        <Route path="/test-blocks" element={<BlocksTestPage />} />
+      </Routes>
     </BrowserRouter>
   );
 };

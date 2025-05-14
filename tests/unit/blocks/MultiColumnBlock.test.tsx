@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import MultiColumnBlock from "../../../src/components/blocks/MultiColumnBlock";
+import MultiColumnBlock from "../../../src/components/document/blocks/MultiColumnBlock";
 import {
   BlockType,
   type MultiColumnBlock as MultiColumnBlockType,

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import ParagraphBlock from "../../../src/components/blocks/ParagraphBlock";
+import ParagraphBlock from "../../../src/components/document/blocks/ParagraphBlock";
 import {
   BlockType,
   type ParagraphBlock as ParagraphBlockType,

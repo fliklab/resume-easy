@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div class="flex flex-col items-center justify-center mx-auto h-screen">
+    <div className="flex flex-col items-center justify-center mx-auto h-screen">
       <div>
         <h1 className="text-2xl font-bold my-6">RESUME EASY</h1>
         <p className="text-gray-500 mb-6">이력서 작성을 위한 프로젝트입니다</p>

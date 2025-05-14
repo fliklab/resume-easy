@@ -1,6 +1,6 @@
 import React from "react";
-import type { MultiRowBlock as MultiRowBlockType } from "../../types";
-import { renderBlock } from "../../utils/blockRenderer";
+import type { MultiRowBlock as MultiRowBlockType } from "../../../types";
+import { renderBlock } from "../../../utils/blockRenderer";
 
 interface MultiRowBlockProps {
   block: MultiRowBlockType;

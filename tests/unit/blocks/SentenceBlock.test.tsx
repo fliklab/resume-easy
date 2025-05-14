@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import SentenceBlock from "../../../src/components/blocks/SentenceBlock";
+import SentenceBlock from "../../../src/components/document/blocks/SentenceBlock";
 import {
   BlockType,
   type SentenceBlock as SentenceBlockType,

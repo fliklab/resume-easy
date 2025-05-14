@@ -1,5 +1,5 @@
 import React from "react";
-import type { ParagraphBlock as ParagraphBlockType } from "../../types";
+import type { ParagraphBlock as ParagraphBlockType } from "../../../types";
 
 interface Props {
   block: ParagraphBlockType;

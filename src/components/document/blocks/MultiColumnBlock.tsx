@@ -1,6 +1,6 @@
 import React from "react";
-import type { MultiColumnBlock as MultiColumnBlockType } from "../../types";
-import { renderBlock } from "../../utils/blockRenderer";
+import type { MultiColumnBlock as MultiColumnBlockType } from "../../../types";
+import { renderBlock } from "../../../utils/blockRenderer";
 
 interface Props {
   block: MultiColumnBlockType;

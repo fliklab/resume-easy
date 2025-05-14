@@ -9,3 +9,5 @@
 [draft](/docs/draft.md)의 설계 원칙으로 블록과 섹션을 정의합니다.
 
 [테스트 전략](/docs/tests.md)에서 테스트 전략을 다룹니다.
+
+Component 및 스타일은 Document에서 사용하는 것(Block, Sections)과 웹사이트를 위한 컴포넌트가 완전히 분리됩니다.

@@ -1,5 +1,5 @@
 import React from "react";
-import type { Document } from "../types";
+import type { Document } from "../../types";
 import SkillsSection from "./sections/SkillsSection";
 
 interface Props {

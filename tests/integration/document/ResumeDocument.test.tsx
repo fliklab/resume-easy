@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import ResumeDocument from "../../../src/components/ResumeDocument";
+import ResumeDocument from "../../../src/components/document/ResumeDocument";
 import { mockResumeData } from "../../fixtures/mockResumeData";
 
 // SkillsSection을 모킹합니다

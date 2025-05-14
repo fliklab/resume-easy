@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import KeywordsBlock from "../components/blocks/KeywordsBlock";
-import SentenceBlock from "../components/blocks/SentenceBlock";
-import ParagraphBlock from "../components/blocks/ParagraphBlock";
-import MultiColumnBlock from "../components/blocks/MultiColumnBlock";
-import MultiRowBlock from "../components/blocks/MultiRowBlock";
+import KeywordsBlock from "../components/document/blocks/KeywordsBlock";
+import SentenceBlock from "../components/document/blocks/SentenceBlock";
+import ParagraphBlock from "../components/document/blocks/ParagraphBlock";
+import MultiColumnBlock from "../components/document/blocks/MultiColumnBlock";
+import MultiRowBlock from "../components/document/blocks/MultiRowBlock";
 import {
   BlockType,
   type KeywordsBlock as KeywordsBlockType,
@@ -107,80 +107,86 @@ const MultiRowBlockData: MultiRowBlockType = {
 
 const BlocksTestPage: React.FC = () => {
   return (
-    <div className="container mx-auto p-6">
-      <div className="mb-6">
-        <Link to="/" className="text-blue-500 hover:underline mb-6">
-          ← 홈으로 돌아가기
-        </Link>
-        <h1 className="text-3xl font-bold mt-4 mb-8">
-          블록 컴포넌트 테스트 페이지
-        </h1>
+    <div className="mx-auto p-6 flex flex-col justify-center items-center bg-gray-100">
+      <div className="flex flex-col max-w-4xl w-full h-full justify-start items-start ">
+        <div className="mb-6">
+          <Link to="/" className="text-blue-500 hover:underline mb-6">
+            ← 홈으로 돌아가기
+          </Link>
+          <h1 className="text-3xl font-bold mt-4 mb-8">
+            블록 컴포넌트 테스트 페이지
+          </h1>
+        </div>
       </div>
+      {/* 이력서 컨테이너 */}
+      <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 my-4">
+        <div className="p-8">
+          <div className="space-y-8">
+            {/* KeywordsBlock 테스트 */}
+            <section className="border p-4 rounded shadow">
+              <h2 className="text-xl font-semibold mb-4">KeywordsBlock</h2>
+              <div className="bg-gray-50 p-4 rounded">
+                <KeywordsBlock block={keywordsBlockData} />
+              </div>
+            </section>
 
-      <div className="space-y-8">
-        {/* KeywordsBlock 테스트 */}
-        <section className="border p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-4">KeywordsBlock</h2>
-          <div className="bg-gray-50 p-4 rounded">
-            <KeywordsBlock block={keywordsBlockData} />
-          </div>
-        </section>
+            {/* SentenceBlock 테스트 */}
+            <section className="border p-4 rounded shadow">
+              <h2 className="text-xl font-semibold mb-4">SentenceBlock</h2>
+              <div className="bg-gray-50 p-4 rounded">
+                <SentenceBlock block={sentenceBlockData} />
+              </div>
+            </section>
 
-        {/* SentenceBlock 테스트 */}
-        <section className="border p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-4">SentenceBlock</h2>
-          <div className="bg-gray-50 p-4 rounded">
-            <SentenceBlock block={sentenceBlockData} />
-          </div>
-        </section>
+            {/* ParagraphBlock 테스트 */}
+            <section className="border p-4 rounded shadow">
+              <h2 className="text-xl font-semibold mb-4">ParagraphBlock</h2>
+              <div className="bg-gray-50 p-4 rounded">
+                <ParagraphBlock block={paragraphBlockData} />
+              </div>
+            </section>
 
-        {/* ParagraphBlock 테스트 */}
-        <section className="border p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-4">ParagraphBlock</h2>
-          <div className="bg-gray-50 p-4 rounded">
-            <ParagraphBlock block={paragraphBlockData} />
-          </div>
-        </section>
+            {/* MultiColumnBlock 테스트 - 기본 */}
+            <section className="border p-4 rounded shadow">
+              <h2 className="text-xl font-semibold mb-4">
+                MultiColumnBlock (기본)
+              </h2>
+              <div className="bg-gray-50 p-4 rounded">
+                <MultiColumnBlock block={multiColumnBlockData} />
+              </div>
+            </section>
 
-        {/* MultiColumnBlock 테스트 - 기본 */}
-        <section className="border p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-4">
-            MultiColumnBlock (기본)
-          </h2>
-          <div className="bg-gray-50 p-4 rounded">
-            <MultiColumnBlock block={multiColumnBlockData} />
-          </div>
-        </section>
+            {/* MultiColumnBlock 테스트 - 복잡한 구조 */}
+            <section className="border p-4 rounded shadow">
+              <h2 className="text-xl font-semibold mb-4">
+                MultiColumnBlock (복잡한 구조)
+              </h2>
+              <div className="bg-gray-50 p-4 rounded">
+                <MultiColumnBlock block={multiColumnComplexData} />
+              </div>
+            </section>
 
-        {/* MultiColumnBlock 테스트 - 복잡한 구조 */}
-        <section className="border p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-4">
-            MultiColumnBlock (복잡한 구조)
-          </h2>
-          <div className="bg-gray-50 p-4 rounded">
-            <MultiColumnBlock block={multiColumnComplexData} />
-          </div>
-        </section>
+            {/* MultiRowBlockData */}
+            <section className="border p-4 rounded shadow">
+              <h2 className="text-xl font-semibold mb-4">MultiRowBlock</h2>
+              <div className="bg-gray-50 p-4 rounded">
+                <MultiRowBlock block={MultiRowBlockData} />
+              </div>
+            </section>
 
-        {/* MultiRowBlockData */}
-        <section className="border p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-4">MultiRowBlock</h2>
-          <div className="bg-gray-50 p-4 rounded">
-            <MultiRowBlock block={MultiRowBlockData} />
+            {/* 편집 모드 테스트 */}
+            <section className="border p-4 rounded shadow">
+              <h2 className="text-xl font-semibold mb-4">편집 모드 테스트</h2>
+              <div className="bg-gray-50 p-4 rounded">
+                <KeywordsBlock
+                  block={keywordsBlockData}
+                  isEditMode={true}
+                  onEdit={() => console.log("편집 모드 활성화")}
+                />
+              </div>
+            </section>
           </div>
-        </section>
-
-        {/* 편집 모드 테스트 */}
-        <section className="border p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-4">편집 모드 테스트</h2>
-          <div className="bg-gray-50 p-4 rounded">
-            <KeywordsBlock
-              block={keywordsBlockData}
-              isEditMode={true}
-              onEdit={() => console.log("편집 모드 활성화")}
-            />
-          </div>
-        </section>
+        </div>
       </div>
     </div>
   );

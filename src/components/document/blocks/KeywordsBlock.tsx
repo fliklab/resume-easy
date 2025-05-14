@@ -1,5 +1,5 @@
 import React from "react";
-import type { KeywordsBlock as KeywordsBlockType } from "../../types";
+import type { KeywordsBlock as KeywordsBlockType } from "../../../types";
 
 interface Props {
   block: KeywordsBlockType;

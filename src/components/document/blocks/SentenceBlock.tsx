@@ -1,5 +1,5 @@
 import React from "react";
-import type { SentenceBlock as SentenceBlockType } from "../../types";
+import type { SentenceBlock as SentenceBlockType } from "../../../types";
 
 interface Props {
   block: SentenceBlockType;
