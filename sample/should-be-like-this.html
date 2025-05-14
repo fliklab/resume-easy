@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>개발자 이력서</title>
+    <style>
+      /* 기본 스타일 */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f3f4f6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+      }
+
+      /* 컨테이너 */
+      .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* 버튼 스타일 */
+      .edit-toggle {
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        float: right;
+        margin-bottom: 0.5rem;
+      }
+
+      .edit-toggle:hover {
+        background-color: #2563eb;
+      }
+
+      .edit-toggle.active {
+        background-color: #ef4444;
+      }
+
+      .edit-toggle.active:hover {
+        background-color: #dc2626;
+      }
+
+      /* 마크다운 도움말 */
+      .markdown-help {
+        font-size: 0.875rem;
+        color: #4b5563;
+        padding: 0.5rem 1rem;
+        float: left;
+        margin-bottom: 0.5rem;
+        display: none;
+      }
+
+      /* 이력서 페이퍼 스타일 */
+      .resume-paper {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+        margin-bottom: 2rem;
+        clear: both;
+      }
+
+      .resume-content {
+        padding: 2rem;
+      }
+
+      /* 헤더 섹션 */
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .header h1 {
+        font-size: 1.875rem;
+        font-weight: bold;
+        color: #1f2937;
+      }
+
+      .header p {
+        font-size: 1.125rem;
+        color: #4b5563;
+        margin-top: 0.25rem;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 0.75rem;
+        font-size: 0.875rem;
+        color: #4b5563;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+      }
+
+      .contact-item span {
+        margin-right: 0.25rem;
+      }
+
+      /* 섹션 스타일 */
+      .section {
+        margin-bottom: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #1f2937;
+        border-bottom: 2px solid #d1d5db;
+        padding-bottom: 0.25rem;
+        margin-bottom: 0.75rem;
+      }
+
+      /* 기술 스택 */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .skill-category {
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #4b5563;
+      }
+
+      .skill-list {
+        color: #4b5563;
+      }
+
+      /* 경험 섹션 */
+      .experience-item {
+        margin-bottom: 1.25rem;
+      }
+
+      .experience-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .company-title {
+        font-weight: bold;
+        color: #1f2937;
+      }
+
+      .location {
+        font-size: 0.875rem;
+        color: #4b5563;
+      }
+
+      .period {
+        text-align: right;
+        font-size: 0.875rem;
+        color: #4b5563;
+      }
+
+      .achievements {
+        list-style-position: outside;
+        padding-left: 2rem;
+        color: #4b5563;
+      }
+
+      .achievements li {
+        margin-bottom: 0.25rem;
+        padding-left: 0.25rem;
+      }
+
+      /* 프로젝트 섹션 */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.25rem;
+        padding: 1rem;
+      }
+
+      .project-title {
+        font-weight: bold;
+        color: #1f2937;
+        margin-bottom: 0.25rem;
+      }
+
+      .project-tech {
+        font-size: 0.875rem;
+        color: #4b5563;
+        margin-bottom: 0.5rem;
+      }
+
+      .project-description {
+        color: #4b5563;
+      }
+
+      .project-link {
+        font-size: 0.875rem;
+        color: #2563eb;
+        margin-top: 0.5rem;
+        display: block;
+      }
+
+      /* 교육 섹션 */
+      .education {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1rem;
+      }
+
+      .degree {
+        font-weight: bold;
+        color: #1f2937;
+      }
+
+      .institution {
+        color: #4b5563;
+      }
+
+      .education-period {
+        text-align: right;
+        color: #4b5563;
+      }
+
+      /* 자격증 섹션 */
+      .certifications {
+        list-style-position: outside;
+        padding-left: 2rem;
+        color: #4b5563;
+      }
+
+      .certifications li {
+        margin-bottom: 0.25rem;
+        padding-left: 0.25rem;
+      }
+
+      /* 편집 가능한 필드 스타일 */
+      .editable {
+        position: relative;
+        display: inline-block;
+        min-height: 1.2em;
+        min-width: 1em;
+        padding: 2px;
+        border-radius: 2px;
+      }
+
+      .edit-mode .editable:hover {
+        background-color: #f3f4f6;
+      }
+
+      .edit-mode .editable:hover:after {
+        content: "✏️";
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 0.75rem;
+        color: #3b82f6;
+      }
+
+      .editable-input {
+        width: 100%;
+        padding: 0.25rem;
+        border: 1px solid #93c5fd;
+        border-radius: 0.25rem;
+      }
+
+      .editable-textarea {
+        width: 100%;
+        padding: 0.25rem;
+        border: 1px solid #93c5fd;
+        border-radius: 0.25rem;
+        min-height: 5em;
+      }
+
+      /* 반응형 */
+      @media (max-width: 640px) {
+        .skills-grid,
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .experience-header {
+          grid-template-columns: 1fr;
+        }
+
+        .period {
+          text-align: left;
+        }
+
+        .education {
+          grid-template-columns: 1fr;
+        }
+
+        .education-period {
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- 편집 모드 토글 -->
+      <div class="markdown-help" id="markdownHelp">
+        마크다운 지원: <strong>**굵게**</strong>, <em>*기울임*</em>,
+        <span style="background-color: #fef08a">==하이라이트==</span>,
+        [링크](URL)
+      </div>
+      <button class="edit-toggle" id="editToggle">편집 모드</button>
+
+      <!-- 이력서 레이아웃 -->
+      <div class="resume-paper">
+        <div class="resume-content">
+          <!-- 헤더 섹션 -->
+          <div class="header">
+            <h1><span class="editable" data-field="name">홍길동</span></h1>
+            <p>
+              <span class="editable" data-field="title"
+                >시니어 프론트엔드 개발자</span
+              >
+            </p>
+            <div class="contact-info">
+              <div class="contact-item">
+                <span>📧</span>
+                <span class="editable" data-field="email"
+                  >example@email.com</span
+                >
+              </div>
+              <div class="contact-item">
+                <span>📱</span>
+                <span class="editable" data-field="phone">010-1234-5678</span>
+              </div>
+              <div class="contact-item">
+                <span>🔗</span>
+                <span class="editable" data-field="github"
+                  >github.com/username</span
+                >
+              </div>
+              <div class="contact-item">
+                <span>🌐</span>
+                <span class="editable" data-field="portfolio"
+                  >portfolio.com</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- 직무 요약 -->
+          <div class="section">
+            <h2 class="section-title">직무 요약</h2>
+            <p>
+              <span class="editable" data-field="summary" data-type="textarea">
+                5년 경력의 React와 TypeScript 전문 웹 개발자로, 사용자 경험
+                최적화와 확장 가능한 웹 애플리케이션 개발에 특화되어 있습니다.
+                대규모 트래픽 처리와 복잡한 UI 컴포넌트 설계에 강점이 있으며, 전
+                직장에서 페이지 로딩 시간을 40% 단축시킨 경험이 있습니다.
+              </span>
+            </p>
+          </div>
+
+          <!-- 기술 스택 -->
+          <div class="section">
+            <h2 class="section-title">기술 스택</h2>
+            <div class="skills-grid">
+              <div>
+                <h3 class="skill-category">프론트엔드</h3>
+                <p class="skill-list">
+                  <span class="editable" data-field="frontend"
+                    >React, TypeScript, JavaScript, HTML5, CSS3, Redux,
+                    Next.js</span
+                  >
+                </p>
+              </div>
+              <div>
+                <h3 class="skill-category">백엔드</h3>
+                <p class="skill-list">
+                  <span class="editable" data-field="backend"
+                    >Node.js, Express, RESTful API, GraphQL</span
+                  >
+                </p>
+              </div>
+              <div>
+                <h3 class="skill-category">개발 도구</h3>
+                <p class="skill-list">
+                  <span class="editable" data-field="devtools"
+                    >Git, Webpack, Jest, React Testing Library, CI/CD</span
+                  >
+                </p>
+              </div>
+              <div>
+                <h3 class="skill-category">기타</h3>
+                <p class="skill-list">
+                  <span class="editable" data-field="other"
+                    >MongoDB, Firebase, AWS, Docker</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 직무 경험 -->
+          <div class="section">
+            <h2 class="section-title">직무 경험</h2>
+
+            <!-- 첫 번째 직무 -->
+            <div class="experience-item">
+              <div class="experience-header">
+                <div>
+                  <h3 class="company-title">
+                    <span class="editable" data-field="exp0-company"
+                      >ABC 테크 - 시니어 프론트엔드 개발자</span
+                    >
+                  </h3>
+                  <p class="location">
+                    <span class="editable" data-field="exp0-location"
+                      >서울, 한국</span
+                    >
+                  </p>
+                </div>
+                <div class="period">
+                  <span class="editable" data-field="exp0-period"
+                    >2022년 3월 - 현재</span
+                  >
+                </div>
+              </div>
+              <ul class="achievements">
+                <li>
+                  <span class="editable" data-field="exp0-achievement0"
+                    >React와 TypeScript를 활용한 대시보드 애플리케이션 개발로
+                    사용자 생산성 25% 향상</span
+                  >
+                </li>
+                <li>
+                  <span class="editable" data-field="exp0-achievement1"
+                    >컴포넌트 라이브러리 구축 및 문서화를 통해 개발 주기 30%
+                    단축</span
+                  >
+                </li>
+                <li>
+                  <span class="editable" data-field="exp0-achievement2"
+                    >성능 최적화를 통해 페이지 로딩 시간 40% 감소 및 사용자
+                    이탈률 15% 감소</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- 두 번째 직무 -->
+            <div class="experience-item">
+              <div class="experience-header">
+                <div>
+                  <h3 class="company-title">
+                    <span class="editable" data-field="exp1-company"
+                      >XYZ 소프트웨어 - 프론트엔드 개발자</span
+                    >
+                  </h3>
+                  <p class="location">
+                    <span class="editable" data-field="exp1-location"
+                      >부산, 한국</span
+                    >
+                  </p>
+                </div>
+                <div class="period">
+                  <span class="editable" data-field="exp1-period"
+                    >2020년 5월 - 2022년 2월</span
+                  >
+                </div>
+              </div>
+              <ul class="achievements">
+                <li>
+                  <span class="editable" data-field="exp1-achievement0"
+                    >React 기반 e-커머스 플랫폼 개발에 참여하여 월간 트래픽 50만
+                    명 처리</span
+                  >
+                </li>
+                <li>
+                  <span class="editable" data-field="exp1-achievement1"
+                    >Redux를 활용한 상태 관리 최적화로 애플리케이션 안정성 20%
+                    향상</span
+                  >
+                </li>
+                <li>
+                  <span class="editable" data-field="exp1-achievement2"
+                    >반응형 디자인 구현으로 모바일 사용자 전환율 35% 증가</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- 세 번째 직무 -->
+            <div class="experience-item">
+              <div class="experience-header">
+                <div>
+                  <h3 class="company-title">
+                    <span class="editable" data-field="exp2-company"
+                      >스타트업 인큐베이터 - 주니어 개발자</span
+                    >
+                  </h3>
+                  <p class="location">
+                    <span class="editable" data-field="exp2-location"
+                      >서울, 한국</span
+                    >
+                  </p>
+                </div>
+                <div class="period">
+                  <span class="editable" data-field="exp2-period"
+                    >2019년 1월 - 2020년 4월</span
+                  >
+                </div>
+              </div>
+              <ul class="achievements">
+                <li>
+                  <span class="editable" data-field="exp2-achievement0"
+                    >JavaScript와 jQuery를 사용한 웹 애플리케이션 유지보수 및
+                    기능 개선</span
+                  >
+                </li>
+                <li>
+                  <span class="editable" data-field="exp2-achievement1"
+                    >React로의 마이그레이션 프로젝트에 참여하여 레거시 코드
+                    현대화</span
+                  >
+                </li>
+                <li>
+                  <span class="editable" data-field="exp2-achievement2"
+                    >UI/UX 개선을 통해 사용자 세션 시간 22% 증가</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 프로젝트 섹션 -->
+          <div class="section">
+            <h2 class="section-title">주요 프로젝트</h2>
+            <div class="projects-grid">
+              <div class="project-card">
+                <h3 class="project-title">
+                  <span class="editable" data-field="project0-name"
+                    >실시간 협업 툴</span
+                  >
+                </h3>
+                <p class="project-tech">
+                  <span class="editable" data-field="project0-tech"
+                    >React, TypeScript, Socket.io</span
+                  >
+                </p>
+                <p class="project-description">
+                  <span class="editable" data-field="project0-description"
+                    >분산 팀을 위한 실시간 문서 협업 도구 개발. WebSocket을
+                    활용한 실시간 동기화 구현으로 팀 생산성 40% 향상.</span
+                  >
+                </p>
+                <p class="project-link">
+                  <span class="editable" data-field="project0-link"
+                    >github.com/username/project1</span
+                  >
+                </p>
+              </div>
+              <div class="project-card">
+                <h3 class="project-title">
+                  <span class="editable" data-field="project1-name"
+                    >AI 기반 대시보드</span
+                  >
+                </h3>
+                <p class="project-tech">
+                  <span class="editable" data-field="project1-tech"
+                    >React, TypeScript, D3.js</span
+                  >
+                </p>
+                <p class="project-description">
+                  <span class="editable" data-field="project1-description"
+                    >데이터 시각화와 예측 분석을 위한 대시보드 개발. 복잡한
+                    데이터를 직관적인 차트로 표현하여 의사결정 시간 30%
+                    단축.</span
+                  >
+                </p>
+                <p class="project-link">
+                  <span class="editable" data-field="project1-link"
+                    >github.com/username/project2</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 교육 -->
+          <div class="section">
+            <h2 class="section-title">교육</h2>
+            <div class="education">
+              <div>
+                <h3 class="degree">
+                  <span class="editable" data-field="degree"
+                    >컴퓨터 공학 학사</span
+                  >
+                </h3>
+                <p class="institution">
+                  <span class="editable" data-field="institution"
+                    >한국 공과대학교</span
+                  >
+                </p>
+              </div>
+              <div class="education-period">
+                <span class="editable" data-field="education-period"
+                  >2015년 - 2019년</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- 자격증 및 교육 -->
+          <div class="section">
+            <h2 class="section-title">자격증 및 교육</h2>
+            <ul class="certifications">
+              <li>
+                <span class="editable" data-field="certification0"
+                  >AWS 공인 개발자 - 어소시에이트 (2023)</span
+                >
+              </li>
+              <li>
+                <span class="editable" data-field="certification1"
+                  >React 고급 개발자 과정 수료 (2022)</span
+                >
+              </li>
+              <li>
+                <span class="editable" data-field="certification2"
+                  >TypeScript 마스터 클래스 수료 (2021)</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 상태 관리
+        let isEditMode = false;
+        let currentlyEditing = null;
+
+        // 요소들
+        const editToggle = document.getElementById("editToggle");
+        const markdownHelp = document.getElementById("markdownHelp");
+        const editableElements = document.querySelectorAll(".editable");
+
+        // 마크다운 파서 함수
+        function parseMarkdown(text) {
+          if (!text) return "";
+
+          // Bold: **text** or __text__
+          let formatted = text.replace(
+            /(\*\*|__)(.*?)\1/g,
+            "<strong>$2</strong>"
+          );
+
+          // Italic: *text* or _text_
+          formatted = formatted.replace(/(\*|_)(.*?)\1/g, "<em>$2</em>");
+
+          // Links: [text](url)
+          formatted = formatted.replace(
+            /\[([^\]]+)\]\(([^)]+)\)/g,
+            '<a href="$2" style="color: #2563eb; text-decoration: none;" target="_blank">$1</a>'
+          );
+
+          // Highlight: ==text==
+          formatted = formatted.replace(
+            /==(.*?)==/g,
+            '<span style="background-color: #fef08a;">$1</span>'
+          );
+
+          return formatted;
+        }
+
+        // 마크다운 적용 함수
+        function applyMarkdown() {
+          editableElements.forEach((el) => {
+            if (!el.isContentEditable) {
+              // 내부에 마크다운이 있는 경우 적용
+              el.innerHTML = parseMarkdown(el.textContent);
+            }
+          });
+        }
+
+        // 편집 모드 토글
+        editToggle.addEventListener("click", function () {
+          isEditMode = !isEditMode;
+
+          // 버튼 상태 변경
+          if (isEditMode) {
+            editToggle.textContent = "편집 완료";
+            editToggle.classList.add("active");
+            markdownHelp.style.display = "block";
+            document.body.classList.add("edit-mode");
+          } else {
+            editToggle.textContent = "편집 모드";
+            editToggle.classList.remove("active");
+            markdownHelp.style.display = "none";
+            document.body.classList.remove("edit-mode");
+
+            // 편집 모드 종료 시 마크다운 적용
+            applyMarkdown();
+          }
+        });
+
+        // 편집 가능한 요소에 이벤트 추가
+        editableElements.forEach((el) => {
+          el.addEventListener("click", function (e) {
+            if (!isEditMode) return;
+
+            // 이미 편집 중인 요소가 있다면 먼저 저장
+            if (currentlyEditing) {
+              finishEditing();
+            }
+
+            // 현재 요소를 편집 모드로 변경
+            startEditing(el);
+            e.stopPropagation();
+          });
+        });
+
+        // 편집 시작 함수
+        function startEditing(element) {
+          currentlyEditing = element;
+          const value = element.textContent;
+          const field = element.getAttribute("data-field");
+          const isTextarea = element.getAttribute("data-type") === "textarea";
+
+          // 입력 필드 생성
+          if (isTextarea) {
+            const textarea = document.createElement("textarea");
+            textarea.className = "editable-textarea";
+            textarea.value = value;
+            element.innerHTML = "";
+            element.appendChild(textarea);
+            textarea.focus();
+
+            // 이벤트 추가
+            textarea.addEventListener("blur", finishEditing);
+            textarea.addEventListener("keydown", function (e) {
+              if (e.key === "Enter" && e.ctrlKey) {
+                finishEditing();
+              }
+            });
+          } else {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.className = "editable-input";
+            input.value = value;
+            element.innerHTML = "";
+            element.appendChild(input);
+            input.focus();
+
+            // 이벤트 추가
+            input.addEventListener("blur", finishEditing);
+            input.addEventListener("keydown", function (e) {
+              if (e.key === "Enter") {
+                finishEditing();
+              }
+            });
+          }
+        }
+
+        // 편집 완료 함수
+        function finishEditing() {
+          if (!currentlyEditing) return;
+
+          const element = currentlyEditing;
+          let value;
+
+          if (element.querySelector("textarea")) {
+            value = element.querySelector("textarea").value;
+          } else if (element.querySelector("input")) {
+            value = element.querySelector("input").value;
+          } else {
+            return;
+          }
+
+          // 값 업데이트
+          element.innerHTML = value;
+
+          // 마크다운 적용
+          if (!isEditMode) {
+            element.innerHTML = parseMarkdown(value);
+          }
+
+          currentlyEditing = null;
+        }
+
+        // 문서 클릭 시 편집 중인 요소 저장
+        document.addEventListener("click", function (e) {
+          if (currentlyEditing && !currentlyEditing.contains(e.target)) {
+            finishEditing();
+          }
+        });
+
+        // 초기 마크다운 적용
+        applyMarkdown();
+      });
+    </script>
+  </body>
+</html>
