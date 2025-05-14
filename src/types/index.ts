@@ -4,6 +4,7 @@ export enum BlockType {
   SENTENCE,
   PARAGRAPH,
   MULTI_COLUMN,
+  MULTI_ROW,
   FIXED,
   TABLE,
 }
@@ -40,6 +41,12 @@ export interface MultiColumnBlock extends Block {
   type: BlockType.MULTI_COLUMN;
   columns: Block[];
   ratio?: number[]; // 예: [1, 2] => 1:2 비율
+}
+
+// 멀티 로우 블록
+export interface MultiRowBlock extends Block {
+  type: BlockType.MULTI_ROW;
+  rows: Block[];
 }
 
 // 고정 블록

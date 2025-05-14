@@ -1,7 +1,12 @@
 import "./index.css";
+import SampleResume from "./SampleResume";
 
 const App = () => {
-  return <div>Hello World</div>;
+  return (
+    <div>
+      <SampleResume />
+    </div>
+  );
 };
 
 export default App;
