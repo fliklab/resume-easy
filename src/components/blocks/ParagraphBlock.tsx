@@ -20,13 +20,13 @@ const parseMarkdown = (text: string): string => {
   // 링크: [text](url)
   formatted = formatted.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+    '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">$1</a>'
   );
 
   // 하이라이트: ==text==
   formatted = formatted.replace(
     /==(.*?)==/g,
-    '<span class="highlight">$1</span>'
+    '<span class="bg-yellow-200 px-1">$1</span>'
   );
 
   // 줄바꿈을 <br>로 변환
@@ -38,36 +38,48 @@ const parseMarkdown = (text: string): string => {
 const ParagraphBlock: React.FC<Props> = ({ block, isEditMode, onEdit }) => {
   const { id, title, content } = block;
 
-  const handleContentChange = (newContent: string) => {
-    onEdit?.(id, { content: newContent });
-  };
-
-  const handleTitleChange = (newTitle: string) => {
-    onEdit?.(id, { title: newTitle });
-  };
-
   // 편집 모드일 때는 원본 텍스트 표시, 아닐 때는 마크다운 적용
   const displayContent = isEditMode ? content : parseMarkdown(content);
 
   return (
-    <div className="paragraph-block" data-testid="paragraph-block">
+    <div className="paragraph-block mb-4" data-testid="paragraph-block">
       {title && (
         <h4
-          className="paragraph-title"
+          className="paragraph-title font-semibold text-lg mb-1 text-gray-800"
           data-testid="paragraph-title"
-          onClick={isEditMode ? () => {} : undefined}
+          onClick={
+            isEditMode
+              ? () => {
+                  if (onEdit && title) {
+                    // 제목 편집 로직
+                    onEdit(id, { title });
+                  }
+                }
+              : undefined
+          }
         >
           {title}
         </h4>
       )}
 
       <div
-        className="paragraph-content"
+        className="paragraph-content text-base leading-relaxed text-gray-700"
         data-testid="paragraph-content"
-        onClick={isEditMode ? () => {} : undefined}
+        onClick={
+          isEditMode
+            ? () => {
+                if (onEdit) {
+                  // 내용 편집 로직
+                  onEdit(id, { content });
+                }
+              }
+            : undefined
+        }
       >
         {isEditMode ? (
-          <div>{content}</div>
+          <div className="border border-gray-300 p-2 rounded bg-gray-50 min-h-[60px]">
+            {content}
+          </div>
         ) : (
           <div dangerouslySetInnerHTML={{ __html: displayContent }} />
         )}

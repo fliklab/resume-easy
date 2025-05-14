@@ -18,11 +18,14 @@ const MultiColumnBlock: React.FC<Props> = ({ block, isEditMode, onEdit }) => {
   });
 
   return (
-    <div className="multi-column-block">
+    <div
+      className="multi-column-block flex gap-4"
+      data-testid="multi-column-block"
+    >
       {columns.map((columnBlock, index) => (
         <div
           key={`${block.id}-column-${index}`}
-          className="column"
+          className="column w-full"
           style={columnStyles[index]}
           data-testid={`column-${index}`}
         >

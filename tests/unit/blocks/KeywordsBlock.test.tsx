@@ -1,17 +1,20 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import KeywordsBlock from "../../../src/components/blocks/KeywordsBlock";
-import { BlockType } from "../../../src/types";
+import {
+  BlockType,
+  type KeywordsBlock as KeywordsBlockType,
+} from "../../../src/types";
 
 describe("KeywordsBlock", () => {
-  const mockKeywordsBlock = {
+  const mockKeywordsBlock: KeywordsBlockType = {
     id: "keywords1",
     type: BlockType.KEYWORDS,
     items: ["React", "TypeScript", "JavaScript", "HTML", "CSS"],
     title: "프론트엔드",
   };
 
-  const mockKeywordsBlockWithoutTitle = {
+  const mockKeywordsBlockWithoutTitle: KeywordsBlockType = {
     id: "keywords2",
     type: BlockType.KEYWORDS,
     items: ["Node.js", "Express", "MongoDB"],

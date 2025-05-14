@@ -20,13 +20,13 @@ const parseMarkdown = (text: string): string => {
   // 링크: [text](url)
   formatted = formatted.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+    '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">$1</a>'
   );
 
   // 하이라이트: ==text==
   formatted = formatted.replace(
     /==(.*?)==/g,
-    '<span class="highlight">$1</span>'
+    '<span class="bg-yellow-200 px-1">$1</span>'
   );
 
   return formatted;
@@ -35,21 +35,29 @@ const parseMarkdown = (text: string): string => {
 const SentenceBlock: React.FC<Props> = ({ block, isEditMode, onEdit }) => {
   const { id, content } = block;
 
-  const handleContentChange = (newContent: string) => {
-    onEdit?.(id, { content: newContent });
-  };
-
   // 편집 모드일 때는 원본 텍스트 표시, 아닐 때는 마크다운 적용
   const displayContent = isEditMode ? content : parseMarkdown(content);
 
   return (
     <div
-      className="sentence-block"
+      className="sentence-block text-lg font-medium py-1"
       data-testid="sentence-block"
-      onClick={isEditMode ? () => {} : undefined}
+      onClick={
+        isEditMode
+          ? () => {
+              if (onEdit) {
+                // 편집 모드에서 클릭 시 처리할 로직
+                // 예: 인라인 편집 UI 표시
+                onEdit(id, { content });
+              }
+            }
+          : undefined
+      }
     >
       {isEditMode ? (
-        <span>{content}</span>
+        <span className="border-b border-dashed border-gray-400 pb-0.5">
+          {content}
+        </span>
       ) : (
         <span dangerouslySetInnerHTML={{ __html: displayContent }} />
       )}
