@@ -14,6 +14,11 @@ const Home = () => {
               </Link>
             </li>
             <li>
+              <Link to="/default" className="text-blue-500 hover:underline">
+                기본 이력서
+              </Link>
+            </li>
+            <li>
               <Link to="/test-blocks" className="text-blue-500 hover:underline">
                 블록 테스트
               </Link>

@@ -1,6 +1,5 @@
 import React from "react";
 import type { Document } from "../../types";
-import SkillsSection from "./sections/SkillsSection";
 
 interface Props {
   document: Document;
@@ -8,20 +7,20 @@ interface Props {
   onEdit?: (sectionId: string, blockId: string, content: unknown) => void;
 }
 
-const ResumeDocument: React.FC<Props> = ({ document, isEditMode, onEdit }) => {
+const ResumeDocument: React.FC<Props> = ({ document }) => {
   const { title, sections } = document;
 
   const renderSection = (section: (typeof sections)[0]) => {
     switch (section.id) {
-      case "skills":
-        return (
-          <SkillsSection
-            key={section.id}
-            section={section}
-            isEditMode={isEditMode}
-            onEdit={onEdit}
-          />
-        );
+      // case "skills":
+      //   return (
+      //     {<SkillsSection
+      //       key={section.id}
+      //       section={section}
+      //       isEditMode={isEditMode}
+      //       onEdit={onEdit}
+      //     />}
+      //   );
 
       // 다른 섹션 타입들도 여기에 추가
 
