@@ -76,7 +76,7 @@ const parseMarkdown = (text: string): string => {
   return formatted;
 };
 
-const App = () => {
+const SampleResume = () => {
   // 편집 모드 상태 관리
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [editingField, setEditingField] = useState<FieldPath | null>(null);
@@ -637,4 +637,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default SampleResume;

@@ -1,11 +1,20 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
-import SampleResume from "./SampleResume";
+import Home from "./pages/Home";
+import { BlocksTestPage } from "./pages";
+import { SampleResume } from "./pages";
 
 const App = () => {
   return (
-    <div>
-      <SampleResume />
-    </div>
+    <BrowserRouter>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sample" element={<SampleResume />} />
+          <Route path="/test-blocks" element={<BlocksTestPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 };
 
