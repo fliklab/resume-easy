@@ -1,4 +1,7 @@
+// Jest 설정 파일
 require("@testing-library/jest-dom");
+
+// 필요한 경우 추가 설정이나 모킹 코드를 여기에 추가
 
 // 레이아웃 테스트를 위한 브라우저 환경 보강
 window.HTMLElement.prototype.getBoundingClientRect = function () {

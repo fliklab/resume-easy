@@ -12,13 +12,11 @@ import type { MultiColumnBlock as MultiColumnBlockType } from "../types";
 import type { ParagraphBlock as ParagraphBlockType } from "../types";
 
 // 블록 타입에 따라 적절한 컴포넌트를 반환하는 함수
-export const renderBlock = (
-  block: Block,
-
-  isEditMode?: boolean,
-
-  onEdit?: (blockId: string, content: unknown) => void
-) => {
+export const renderBlock: React.FC<{
+  block: Block;
+  isEditMode?: boolean;
+  onEdit?: (blockId: string, content: unknown) => void;
+}> = ({ block, isEditMode, onEdit }) => {
   switch (block.type) {
     case BlockType.SENTENCE:
       return (
@@ -59,8 +57,6 @@ export const renderBlock = (
           onEdit={onEdit}
         />
       );
-
-    // 추가적인 블록 타입들을 여기에 구현
 
     default:
       return <div>지원되지 않는 블록 타입</div>;

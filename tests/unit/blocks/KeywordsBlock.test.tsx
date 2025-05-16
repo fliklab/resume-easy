@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import KeywordsBlock from "../../../src/components/document/blocks/KeywordsBlock";
 import {

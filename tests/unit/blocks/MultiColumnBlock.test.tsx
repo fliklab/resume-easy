@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import MultiColumnBlock from "../../../src/components/document/blocks/MultiColumnBlock";
 import {

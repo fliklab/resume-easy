@@ -1,11 +1,11 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import ResumeDocument from "../../../src/components/document/ResumeDocument";
 import { mockResumeData } from "../../fixtures/mockResumeData";
+import type { Section } from "../../../src/types";
 
 // SkillsSection을 모킹합니다
 jest.mock("../../../src/components/sections/SkillsSection", () => {
-  return function MockSkillsSection({ section }: any) {
+  return function MockSkillsSection({ section }: { section: Section }) {
     return (
       <div data-testid={`mocked-section-${section.id}`}>
         <h2>{section.title}</h2>

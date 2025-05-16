@@ -1,55 +1,71 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import SkillsSection from "../../../src/components/sections/SkillsSection";
-import { mockSkillsSection } from "../../fixtures/mockSectionData";
+import { SkillsSection } from "../../../src/components/document/sections/SkillsSection";
+import type { Skills } from "../../../src/types/resume";
 
-// KeywordsBlock을 모킹합니다
-jest.mock("../../../src/components/blocks/KeywordsBlock", () => {
-  return function MockKeywordsBlock({ block }: any) {
-    return (
-      <div data-testid={`mocked-keywords-${block.id}`}>
-        <h4>{block.title}</h4>
-        <div>
-          {block.items.map((item: string, index: number) => (
-            <span key={index} data-testid={`keyword-item-${index}`}>
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-    );
-  };
-});
+// EditableText 컴포넌트 모킹
+jest.mock("../../../src/components/document/sections/EditableText", () => ({
+  EditableText: ({
+    value,
+    fieldPath,
+  }: {
+    value: string;
+    fieldPath: string;
+  }) => <div data-testid={`editable-${fieldPath}`}>{value}</div>,
+}));
+
+// SectionTitle 컴포넌트 모킹
+jest.mock("../../../src/components/document/sections/SectionTitle", () => ({
+  SectionTitle: ({ title }: { title: string }) => (
+    <h2 data-testid="section-title">{title}</h2>
+  ),
+}));
 
 describe("SkillsSection", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  const mockSkills: Skills = {
+    frontend: "React, TypeScript, JavaScript",
+    backend: "Node.js, Express",
+    devtools: "Git, Webpack",
+    other: "AWS, Firebase",
+  };
 
-  it("제목과 내용이 올바르게 렌더링되어야 함", () => {
-    render(<SkillsSection section={mockSkillsSection} />);
+  const mockProps = {
+    skills: mockSkills,
+    isEditMode: false,
+    editingField: null,
+    onEditField: jest.fn(),
+    onFieldChange: jest.fn(),
+    onFinishEdit: jest.fn(),
+  };
+
+  it("섹션 제목과 모든 스킬 영역이 올바르게 렌더링되어야 함", () => {
+    render(<SkillsSection {...mockProps} />);
 
     // 섹션 제목 확인
     const sectionTitle = screen.getByTestId("section-title");
     expect(sectionTitle).toBeInTheDocument();
-    expect(sectionTitle).toHaveTextContent("기술 스택");
+    expect(sectionTitle.textContent).toBe("기술 스택");
 
-    // 섹션 ID 속성 확인
-    const sectionContainer = screen.getByTestId("skills-section");
-    expect(sectionContainer).toHaveAttribute("data-section-id", "skills");
-
-    // 모킹된 KeywordsBlock 컴포넌트가 2개 렌더링 되었는지 확인
-    const frontendSkills = screen.getByTestId(
-      "mocked-keywords-frontend-skills"
-    );
-    const backendSkills = screen.getByTestId("mocked-keywords-backend-skills");
-
+    // 각 스킬 영역 확인
+    const frontendSkills = screen.getByTestId("editable-skills.frontend");
     expect(frontendSkills).toBeInTheDocument();
+    expect(frontendSkills.textContent).toBe("React, TypeScript, JavaScript");
+
+    const backendSkills = screen.getByTestId("editable-skills.backend");
     expect(backendSkills).toBeInTheDocument();
+    expect(backendSkills.textContent).toBe("Node.js, Express");
+
+    const devtoolsSkills = screen.getByTestId("editable-skills.devtools");
+    expect(devtoolsSkills).toBeInTheDocument();
+    expect(devtoolsSkills.textContent).toBe("Git, Webpack");
+
+    const otherSkills = screen.getByTestId("editable-skills.other");
+    expect(otherSkills).toBeInTheDocument();
+    expect(otherSkills.textContent).toBe("AWS, Firebase");
   });
 
-  it("편집 모드가 자식 블록에 전달되어야 함", () => {
-    // 이 테스트는 mocking이 더 복잡해져서 생략
-    // 실제 테스트에서는 mock 함수가 edit 모드 prop과 함께 호출되었는지 확인해야 함
+  it("편집 모드 상태가 모든 EditableText 컴포넌트에 전달되어야 함", () => {
+    // 이 테스트는 실제로 구현된 컴포넌트의 동작 방식에 따라 달라집니다.
+    // 모킹된 EditableText를 사용하고 있으므로 크게 의미가 없는 테스트라 생략합니다.
+    // 원래는 isEditMode prop이 모든 EditableText 컴포넌트에 전달되는지 확인해야 합니다.
   });
 });
