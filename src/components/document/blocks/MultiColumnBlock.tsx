@@ -29,7 +29,7 @@ const MultiColumnBlock: React.FC<Props> = ({ block, isEditMode, onEdit }) => {
           style={columnStyles[index]}
           data-testid={`column-${index}`}
         >
-          {renderBlock(columnBlock, isEditMode, onEdit)}
+          {renderBlock({ block: columnBlock, isEditMode, onEdit })}
         </div>
       ))}
     </div>

@@ -23,7 +23,7 @@ const MultiRowBlock: React.FC<MultiRowBlockProps> = ({
           className="multi-row-row"
           data-testid={`multi-row-row-${index}`}
         >
-          {renderBlock(row, isEditMode, onEdit)}
+          {renderBlock({ block: row, isEditMode, onEdit })}
         </div>
       ))}
     </div>
